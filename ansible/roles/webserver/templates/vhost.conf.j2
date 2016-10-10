@@ -1,0 +1,88 @@
+<VirtualHost *:80>
+    ServerAdmin    d.space@{{ ansible_fqdn }}
+
+    # application thinks it is running on (<Host...)
+    ServerName        {{ ansible_fqdn }}
+
+    ### BEGIN: cache settings ###
+    ### Depends on mod_headers being loaded:
+    ###             sudo a2enmod headers
+    ###             sudo apache2ctl graceful
+    ### See: http://httpd.apache.org/docs/2.2/mod/mod_headers.html
+    <IfModule mod_headers.c>
+        # force media to revalidate
+        <FilesMatch "\.(xml|txt|js|css|gif|jpe?g|png|swf)$">
+            ExpiresDefault A3600
+            Header append Cache-Control "must-revalidate"
+        </FilesMatch>
+
+        # forbid caching of sensitive pages
+        <LocationMatch "/(login|password-login|register|profile)">
+            # recommended to use both no-cache and no-store
+            # see: http://palpapers.plynt.com/issues/2008Jul/cache-control-attributes/
+            Header append Cache-Control "no-cache, no-store"
+        </LocationMatch>
+    </IfModule>
+    ### END: cache settings ###
+
+    # DON'T TURN ProxyRequests ON!  Bad things will happen
+    # http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#access
+    # http://www.akadia.com/services/prevent_abuse_proxy.html
+    ProxyRequests    Off
+    # pass the Host: header from the incoming request to the proxied host,
+    # instead of the hostname specified in the ProxyPass line
+    ProxyPreserveHost On
+    #ProxyPass  /Shibboleth.sso !
+    ProxyPass            /    http://127.0.0.1:{{ tomcat_port }}/
+    ProxyPassReverse    /    http://127.0.0.1:{{ tomcat_port }}/
+
+    <Proxy *>
+        allow from all
+    </Proxy>
+
+    # protect dspace's solr statistics (we only need to access them from localhost)
+#    <Location "/solr">
+#        Order   deny,allow
+#        Deny    from all
+#        Allow   from 127.0.0.1
+#    </Location>
+    CustomLog "/var/log/apache2/access_log" combined
+
+    # As long as Shibboleth module is installed, enable all Shibboleth/mod_shib related settings
+   #<IfModule mod_shib>
+       # Shibboleth recommends turning on UseCanonicalName
+       # See "Prepping Apache" in https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPApacheConfig
+       #UseCanonicalName On
+
+       #<Location />
+       #  AuthType shibboleth
+       #  ShibRequireSession Off
+       #  require shibboleth
+       #</Location>
+
+       # If a user attempts to access the DSpace shibboleth login page, force them to authenticate via Shib
+       #<Location "/shibboleth-login">
+       #  AuthType shibboleth
+        # ShibRequireSession On
+        # ShibUseHeaders On
+    # ShibExportAssertion On
+    #     require valid-user
+    #   </Location>
+
+    #   <Location "/Shibboleth.sso">
+    #Satisfy Any
+    #   </Location>
+    #   <Location /shibboleth-login>
+    #Allow from all
+    #</Location>
+
+       # Finally, you may need to ensure requests to /Shibboleth.sso are NOT redirected
+       # to Tomcat (as they need to be handled by mod_shib instead).
+       # NOTE: THIS SETTING IS LIKELY ONLY NEEDED IF YOU ARE USING mod_proxy TO REDIRECT
+       # ALL REQUESTS TO TOMCAT (e.g. ProxyPass / ajp://localhost:8009/)
+     ProxyPass / ajp://127.0.0.1:8009/
+#        ProxyPass /Shibboleth.sso !
+   #</IfModule>
+
+</VirtualHost>
+
