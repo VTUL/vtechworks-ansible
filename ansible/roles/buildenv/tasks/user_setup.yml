@@ -1,0 +1,9 @@
+---
+- name: create user account
+  user: name={{ project_user }} group={{ project_user }} home={{ project_user_home }} force=yes state=present
+
+- name: copy template file
+  template: src=dot_bashrc.j2 dest="{{ project_user_home }}/.bashrc"
+
+- name: change file permissions for new user
+  file: path={{ project_user_home }} owner={{ project_user }} group={{ project_user }} state=directory mode=0755
