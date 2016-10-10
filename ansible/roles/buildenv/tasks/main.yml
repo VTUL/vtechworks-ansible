@@ -1,0 +1,4 @@
+---
+- include: group_setup.yml
+- include: user_setup.yml
+- include: software_install.yml
