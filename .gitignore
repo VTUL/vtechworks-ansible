@@ -2,3 +2,4 @@ site_secrets.yml
 *.retry
 .vagrant/
 *.sql
+dspace/
