@@ -34,3 +34,17 @@ cp ansible/example_secrets.yml ansible/site_secrets.yml`
 ```
 
 The Ansible playbook will be expecting a repository-ignored `site_secrets.yml` YAML file. Read the variable contents of the file and adjust them to match your local environment.
+
+## Usage
+
+To install a pristine (we recommend this after every test) VTechworks installation using the new configurations, do the following from the directory you just cloned:
+
+```
+vagrant up
+```
+
+If you are using Ansible directly, you will need the IP address of the server you plan to provision. You can the run the following command from the directory you just cloned:
+
+```
+ansible-playbook --limit <ip address> site.yml -b
+```
