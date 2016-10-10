@@ -12,7 +12,7 @@ These files can be used to install the Vtechworks either to a VM under VirtualBo
 
 These scripts are intended to be run on a Unix-like system. They are tested to work on Mac OSX and Ubuntu Trusty Tahr.
 
-To use these scripts [Vagrant](https://vagrantup.com) must already have been installed on the local system with the [Virtual](https://virtualbox.org) provider working. 
+To use these scripts [Vagrant](https://vagrantup.com) must already have been installed on the local system with the [Virtual](https://virtualbox.org) provider working.
 
 You will need version 1.6+ of [Vagrant](https://vagrantup.com) installed on the local system.
 
@@ -23,7 +23,10 @@ using the following command
 brew install ansible
 ```
 
-Clone this repository on your local machine.
+Clone this repository on your local machine using git which is installed using the following command
+```
+brew install git
+```
 
 ## Configuration
 
@@ -37,9 +40,40 @@ The Ansible playbook will be expecting a repository-ignored `site_secrets.yml` Y
 
 ## Usage
 
-To install a pristine (we recommend this after every test) VTechworks installation using the new configurations, do the following from the directory you just cloned:
+In the case of a local development environment the user will need to install maven software and its java dependencies on the host. Once again using [Homebrew](https://brew.sh) install maven.
 
 ```
+brew install Caskroom/cask/java
+brew install maven32
+```
+
+Note that the `Vagrantfile` expects VTUL's fork of [DSpace](https://github.com/vtul/vtechworks.git) to be on your host machine at `dspace` of your cloned repo where you will do your development.
+
+In `dspace/config/dspace.cfg`, change
+
+```
+event.dispatcher.default.consumers = versioning, discovery, eperson, harvester, elements
+```
+to
+
+```
+event.dispatcher.default.consumers = versioning, discovery, eperson, harvester
+```
+Then, from the cloned  `vtechworks-ansible` directory, build the DSpace project using Maven.
+
+```
+cp ansible/roles/dspace/templates/build.properties.j2 dspace/dspace_local.properties
+cd dspace
+git checkout vt_5_x_dev
+mvn clean package -Denv=dspace_local -Dmirage2.on=true
+```
+
+To install a pristine (recommend this after every sprint test) VTechworks installation using the new configurations, do the following from the directory you just cloned:
+
+
+
+```
+vagrant box update
 vagrant up
 ```
 
