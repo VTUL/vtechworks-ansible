@@ -1,0 +1,6 @@
+---
+- name: ensure ant package is installed
+  apt: name={{ item }} state=present
+  with_items:
+    - ant
+
