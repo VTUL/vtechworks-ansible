@@ -6,4 +6,4 @@
   template: src=dot_bashrc.j2 dest="{{ project_user_home }}/.bashrc"
 
 - name: change file permissions for new user
-  file: path={{ project_user_home }} owner={{ project_user }} group={{ project_user }} state=directory mode=0755
+  file: path={{ project_user_home }} owner={{ project_user }} group={{ project_user }} state=directory mode=0755 recurse=yes
