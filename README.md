@@ -23,3 +23,14 @@ using the following command
 brew install ansible
 ```
 
+Clone this repository on your local machine.
+
+## Configuration
+
+A deployment settings file needs to be created in the `ansible` directory. This file is called `site_secrets.yml` and can be created by copying the example file `example_site_secrets.yml` with the following command from the cloned repository:
+
+```
+cp ansible/example_secrets.yml ansible/site_secrets.yml`
+```
+
+The Ansible playbook will be expecting a repository-ignored `site_secrets.yml` YAML file. Read the variable contents of the file and adjust them to match your local environment.
