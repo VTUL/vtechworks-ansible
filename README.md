@@ -59,6 +59,7 @@ to
 ```
 event.dispatcher.default.consumers = versioning, discovery, eperson, harvester
 ```
+
 Then, from the cloned  `vtechworks-ansible` directory, build the DSpace project using Maven.
 
 ```
@@ -70,12 +71,40 @@ mvn clean package -Denv=dspace_local -Dmirage2.on=true
 
 To install a pristine (recommend this after every sprint test) VTechworks installation using the new configurations, do the following from the directory you just cloned:
 
-
-
 ```
 vagrant box update
 vagrant up
 ```
+
+## VA Tech ONLY steps to complete local development installation
+
+We will be deleting the default Dspace database to install a sample of records for your development. Download the database from Google Drive/VTechWorks/Technology/fewer_items_database_dump.sql.gz to `vtechworks-ansible` and uncompress the file then run the following steps:
+
+```
+vagrant ssh
+sudo /usr/sbin/service tomcat7 stop
+sudo netstat -tlnp
+```
+
+Kill the process that owns the 8080 pid if it fails to stop tomcat7. If the process is 12345 we will kill it with:
+
+```
+sudo kill -9 12345
+```
+
+We can then import the database above with the following steps.
+
+```
+cd /dspace/bin
+sudo -s
+./dspace database clean
+sudo -u postgres psql dspace < /vagrant/fewer_items_database_dump.sql
+./dspace database migrate
+sudo -u vtechworks /dspace/bin/dspace index-discovery -b
+sudo /usr/sbin/service tomcat7 restart
+```
+
+## For Ansible Deployment
 
 If you are using Ansible directly, you will need the IP address of the server you plan to provision. You can the run the following command from the directory you just cloned:
 
