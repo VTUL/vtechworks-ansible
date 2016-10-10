@@ -1,0 +1,4 @@
+---
+- name: create vtechworks group
+  group: name={{ project_group }} state=present system=yes
+
