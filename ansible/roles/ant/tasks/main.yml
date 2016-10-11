@@ -6,4 +6,4 @@
   file: path={{ software_directory }}/apache-ant-{{ ant_version }} state=directory
 
 - name: download ant binary
-  get_url: url=http://apache.mirrors.lucidnetworks.net/ant/binaries/{{ ant_version }}-bin.tar.gz dest={{ software_directory }}/apache-ant-{{ ant_version }}
+  get_url: url=http://apache.mirrors.lucidnetworks.net/ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz dest={{ software_directory }}/apache-ant-{{ ant_version }}
