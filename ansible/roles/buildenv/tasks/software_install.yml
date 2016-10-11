@@ -16,3 +16,7 @@
     - unzip
     - maven
     - build-essential
+
+- name: create directory for non deb software
+  file: path=/opt/nondeb state=directory
+
