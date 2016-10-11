@@ -8,6 +8,9 @@
     - clamav
     - libclamav-dev
 
+- name: copy template config file
+  template: src=clamd.conf.j2 dest=/etc/clamav/clamd.conf
+
 - name: use local private mirror if enabled
   lineinfile:
     dest: /etc/clamav/freshclam.conf
