@@ -2,8 +2,8 @@
 - name: ensure ant debian package is not installed
   apt: name=ant state=absent
 
-- name: create ant install directory
-  file: path={{ software_directory }}/apache-ant-{{ ant_version }} state=directory
-
 - name: download ant binary
-  get_url: url=http://apache.mirrors.lucidnetworks.net/ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz dest={{ software_directory }}/apache-ant-{{ ant_version }}
+  get_url: url=http://apache.mirrors.lucidnetworks.net/ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz dest=/tmp/apache-ant-{{ ant_version }}-bin.tar.gz
+
+- name: unpack downloaded ant binary
+  unarchive: src=/tmp/apache-ant-{{ ant_version }}-bin.tar.gz dest={{ software_directory }} remote_src=yes creates=yes copy=no
