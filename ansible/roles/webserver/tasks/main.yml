@@ -1,0 +1,13 @@
+---
+- name: install apache packages
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - apache2
+    - apache2-utils
+    - libapache2-mod-shib2
+    - libshibsp-dev
+
+- name: select apache to be enabled on boot
+  service: name=apache2 state=started enabled=yes
+
+- include: configure.yml
