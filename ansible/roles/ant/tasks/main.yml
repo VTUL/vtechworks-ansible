@@ -3,7 +3,7 @@
   apt: name=ant state=absent
 
 - name: create ant install directory
-  file: path={{ software_directory }}/{{ ant_version }} state=directory
+  file: path={{ software_directory }}/apache-ant-{{ ant_version }} state=directory
 
 - name: download ant binary
   get_url: url=http://apache.mirrors.lucidnetworks.net/ant/binaries/{{ ant_version }}-bin.tar.gz dest={{ software_directory }}/{{ ant_version }}
