@@ -7,3 +7,9 @@
 
 - name: unpack downloaded ant binary
   unarchive: src=/tmp/apache-ant-{{ ant_version }}-bin.tar.gz dest={{ software_directory }} remote_src=yes creates=yes copy=no
+
+- name: create symbolic link for ant
+  file: src={{ software_directory }}/apache-ant-{{ ant_version }} dest=/opt/apache-ant state=link
+
+- name: override system ant modules
+  shell: echo 'export PATH="/opt/apache-ant/bin:$PATH"' > /etc/profile.d/ant.sh creates=/etc/profile.d/ant.sh
