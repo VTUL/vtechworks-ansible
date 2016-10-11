@@ -15,3 +15,4 @@
     - ghostscript
     - unzip
     - maven
+    - build-essential
