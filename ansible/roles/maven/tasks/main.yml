@@ -1,12 +1,12 @@
 ---
 - name: download maven binary
-  get_url: url=https://archive.apache.org/dist/maven/maven-3/{{ 3.2.5 }}/binaries/apache-maven-{{ 3.2.5 }}-bin.tar.gz dest=/tmp/apache-maven-{{ maven_version }}-bin.tar.gz
+  get_url: url=https://archive.apache.org/dist/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz dest=/tmp/apache-maven-{{ maven_version }}-bin.tar.gz
 
 - name: unpack downloaded ant binary
   unarchive: src=/tmp/apache-maven-{{ maven_version }}-bin.tar.gz dest={{ software_directory }} remote_src=yes creates=yes copy=no
 
 - name: create symbolic link for ant
-  file: src={{ software_directory }}/apache-maven-{{ ant_version }} dest=/opt/apache-maven state=link
+  file: src={{ software_directory }}/apache-maven-{{ maven_version }} dest=/opt/apache-maven state=link
 
 - name: override system ant modules
   shell: echo 'export PATH="/opt/apache-maven/bin:$PATH"' > /etc/profile.d/mvn.sh creates=/etc/profile.d/mvn.sh
