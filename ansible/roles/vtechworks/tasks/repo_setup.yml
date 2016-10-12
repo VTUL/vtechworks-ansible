@@ -8,5 +8,5 @@
   tags: server_setup
 
 - name: change ownership of directory
-  file: path={{ source_dir }} state=directory owner={{ project_users }} group={{ project_groups }} recurse=yes
+  file: path={{ source_dir }} state=directory owner={{ project_user }} group={{ project_user }} recurse=yes
   tags: server_setup
