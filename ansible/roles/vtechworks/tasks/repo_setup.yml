@@ -1,0 +1,12 @@
+---
+- name: remove the synced directory
+  file: path={{ source_dir }}/dspace/ state=absent
+  tags: always
+
+- name: clone github repo into vm
+  git: repo={{ project_repo_url }}/ dest={{ source_dir }}/dspace/ version={{ version }} update=yes force=yes
+  tags: server_setup
+
+- name: change ownership of directory
+  file: path={{ source_dir }} state=directory owner={{ project_users }} group={{ project_groups }} recurse=yes
+  tags: server_setup

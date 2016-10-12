@@ -1,0 +1,7 @@
+---
+dependencies:
+  - { role: ant }
+  - { role: maven }
+  - { role: postgres }
+  - { role: tomcat7 }
+  - { role: webserver }
