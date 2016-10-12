@@ -63,7 +63,7 @@ event.dispatcher.default.consumers = versioning, discovery, eperson, harvester
 Then, from the cloned  `vtechworks-ansible` directory, build the DSpace project using Maven.
 
 ```
-cp ansible/roles/dspace/templates/build.properties.j2 dspace/dspace_local.properties
+cp ansible/roles/vtechworks/templates/build.properties.j2 dspace/dspace_local.properties
 cd dspace
 git checkout vt_5_x_dev
 mvn clean package -Denv=dspace_local -Dmirage2.on=true
