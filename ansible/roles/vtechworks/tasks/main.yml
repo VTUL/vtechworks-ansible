@@ -1,0 +1,7 @@
+---
+- include: repo_setup.yml
+- include: maven_setup.yml
+- include: database_setup.yml
+- include: tomcat_setup.yml
+- include: vtechworks_setup.yml
+- include: post_install.yml
