@@ -1,0 +1,7 @@
+---
+  - name: confirm dspace configuration
+    template: src=dspace.cfg.j2 dest=/dspace/config/dspace.cfg owner={{ project_user }} group={{ project_user }} backup=yes
+
+  - name: confirm oai configuration
+    template: src=oai.cfg.j2 dest=/dspace/config/modules/oai.cfg owner={{ project_user }} group={{ project_user }} backup=yes
+    notify: restart tomcat
