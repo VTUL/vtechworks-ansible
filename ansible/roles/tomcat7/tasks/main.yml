@@ -1,0 +1,16 @@
+---
+- name: ensure tomcat7 packages are installed
+  apt: name={{ item }} state=present
+  with_items:
+    - tomcat7
+
+- name: copy tomcat 7 config file
+  template: src=server.xml.j2 dest=/etc/tomcat7/server.xml owner=root group=root mode=0644 
+
+
+- name: add line to use oracle-java-8
+  lineinfile: dest=/etc/default/tomcat7 line="JAVA_HOME=/usr/lib/jvm/java-8-oracle"
+  notify: restart tomcat
+
+- name: ensure tomcat7 is running
+  service: name=tomcat7 enabled=yes
