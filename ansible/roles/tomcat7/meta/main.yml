@@ -1,0 +1,4 @@
+---
+dependencies:
+  - { role: buildenv }
+  - { role: java8 }
