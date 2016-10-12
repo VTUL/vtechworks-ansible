@@ -14,4 +14,4 @@
     - { role: webserver, become: yes }
     - { role: postgres, become: yes, postgres_version: '9.4' }
     - { role: tomcat7, become: yes }
-    - { role: dspace, become: yes }
+    - { role: vtechworks, become: yes }
