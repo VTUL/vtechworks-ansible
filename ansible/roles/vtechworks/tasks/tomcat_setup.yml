@@ -1,0 +1,32 @@
+---
+- name: replace tomcat7 user with dspace user
+  template: src=default_tomcat7.j2 dest=/etc/default/tomcat7
+  become_user: root
+
+- name: tomcat | configure server.xml
+  template: src=templates/server.xml.j2 dest=/etc/tomcat7/server.xml
+  become_user: root
+
+- name: change tomcat common directory permissions
+  file: path=/var/lib/tomcat7/common owner={{ project_user }} group={{ project_user }} recurse=yes
+
+- name: change tomcat shared directory permissions
+  file: path=/var/lib/tomcat7/shared owner={{ project_user }} group={{ project_user }} recurse=yes
+
+- name: change tomcat webapps directory permissions
+  file: path=/var/lib/tomcat7/webapps owner={{ project_user }} group={{ project_user }} recurse=yes
+
+- name: change tomcat directory permissions
+  file: path=/var/lib/tomcat7/common owner={{ project_user }} group={{ project_user }} recurse=yes
+
+- name: change cache tomcat directory permissions
+  file: path=/var/cache/tomcat7 owner={{ project_user }} group=adm recurse=yes
+
+- name: change log tomcat directory permissions
+  file: path=/var/log/tomcat7 owner={{ project_user }} group=adm recurse=yes
+
+- name: change Catalina tomcat directory permissions
+  file: path=/var/cache/tomcat7/Catalina owner={{ project_user }} group={{ project_user }} recurse=yes
+
+- name: add the project user to the etc init.d script
+  template: src=initd_tomcat.j2 dest=/etc/init.d/tomcat7 mode="a+x"
