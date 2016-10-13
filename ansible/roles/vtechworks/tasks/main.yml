@@ -1,6 +1,7 @@
 ---
-- include: repo_setup.yml
-- include: maven_setup.yml
+## uncheck this in the `none vagrant setup`- include: maven_setup.yml
+## - include: repo_setup.yml
+## - include: maven_setup.yml
 - include: database_setup.yml
 - include: tomcat_setup.yml
 - include: vtechworks_setup.yml
