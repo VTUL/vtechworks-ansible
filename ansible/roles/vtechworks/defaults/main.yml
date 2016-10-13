@@ -1,0 +1,7 @@
+---
+project_db_password: "{{ project_user }}"
+project_db_user: "{{ project_user }}"
+project_db_name: "{{ project_user }}"
+source_dir: "{{ dspace_source_dir }}"
+version: '{{ repo_version }}'
+repo_version: '{{ dspace_repo_version }}'
