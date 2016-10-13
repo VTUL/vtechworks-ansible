@@ -9,8 +9,8 @@
     - { role: buildenv, become: yes }
     - { role: clamav, become: yes }
     - { role: java8, become: yes }
-    - { role: ant, ant_version: '1.9.7', become: yes }
-    - { role: maven, maven_version: '3.2.5', become: yes }
+    - { role: ant, become: yes }
+    - { role: maven, become: yes }
     - { role: webserver, become: yes }
     - { role: postgres, become: yes, postgres_version: '9.4' }
     - { role: tomcat7, become: yes }
