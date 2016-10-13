@@ -6,7 +6,7 @@
   shell: echo '<Context docBase="{{ dspace_home }}/webapps/xmlui"/>' > /var/lib/tomcat7/conf/Catalina/localhost/ROOT.xml
 
 - name: set up other tomcat contexts
-  shell: echo '<Context docBase="{{ dspace_home }}/webapps/{{item}}"/>' > /var/lib/tomcat7/conf/Catalina/localhost/{{item}}.xml
+  shell: echo '<Context docBase="{{ dspace_home }}/webapps/{{ item }}"/>' > /var/lib/tomcat7/conf/Catalina/localhost/{{item}}.xml
   with_items:
     - solr
     - oai
