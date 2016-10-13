@@ -8,4 +8,4 @@ Needs the `buildenv` and `java8` roles to run
 
 ## Role Variables
 
-- `ant_version`: Listed in the `site.yml` file 
+- `ant_version`: version of ant to install
