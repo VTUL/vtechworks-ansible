@@ -25,8 +25,5 @@
 - name: change log tomcat directory permissions
   file: path=/var/log/tomcat7 owner={{ project_user }} group=adm recurse=yes
 
-- name: change Catalina tomcat directory permissions
-  file: path=/var/cache/tomcat7/Catalina owner={{ project_user }} group={{ project_user }} recurse=yes
-
 - name: add the project user to the etc init.d script
   template: src=initd_tomcat.j2 dest=/etc/init.d/tomcat7 mode="a+x"
