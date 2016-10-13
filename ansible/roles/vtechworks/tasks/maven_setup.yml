@@ -1,6 +1,12 @@
 ---
 - name: copy build properties to dspace repo
   template: src=build.properties.j2 dest={{ source_dir }}/dspace/dspace_local.properties
+  become_user: '{{ project_user }}'
+  tags: server_setup
+
+- name: symbolic link to the properties file
+  file: src={{ source_dir }}/dspace/dspace_local.properties dest={{ source_dir}}/dspace_local.properties.properties state=link
+  become_user: '{{ project_user }}'
 
 - name: build it with maven
   command: /opt/apache-maven/bin/mvn -U clean package -Denv=dspace_local.properties -Dmirage2.on=true chdir={{ source_dir }}/dspace
