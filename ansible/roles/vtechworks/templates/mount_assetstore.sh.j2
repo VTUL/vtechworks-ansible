@@ -1,2 +1,2 @@
 #!/bin/sh
-mount -t nfs -ro proto=tcp,port=2049 {{ nfs_share }}:/{{ unix_assets }}/{{ secret_ansible_user }} /dspace/assetstore
+mount -t nfs -ro proto=tcp,port=2049 {{ nfs_share }}:/{{ unix_assets }}/{{ ansible_user }} /dspace/assetstore
