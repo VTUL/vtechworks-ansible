@@ -1,9 +1,17 @@
 ---
+- name: restart PostgreSQL
+  service: name=postgresql state=restarted
+
+- name: create dspace home directory
+  file: path={{ dspace_home }} state=directory owner={{ project_user }} group={{ project_user }}
+
 - name: dspace | perform fresh install
   command: /opt/apache-ant/bin/ant fresh_install chdir={{ ant_source_dir }} creates={{ dspace_home }}/webapps/xmlui
+  become_user: "{{ project_user }}"
 
 - name: set up tomcat ROOT context
   shell: echo '<Context docBase="{{ dspace_home }}/webapps/xmlui"/>' > /var/lib/tomcat7/conf/Catalina/localhost/ROOT.xml
+  become_user: "root"
 
 - name: set up other tomcat contexts
   shell: echo '<Context docBase="{{ dspace_home }}/webapps/{{ item }}"/>' > /var/lib/tomcat7/conf/Catalina/localhost/{{item}}.xml
@@ -12,11 +20,11 @@
     - oai
     - swordv2
     - sword
-  become_user: root
+  become_user: "root"
 
 - name: install mount r/o mount_assetstore
   template: src=mount_assetstore.sh.j2 dest=/etc/init.d/mount_assetstore owner=root group=root mode=0755
 
 - name: start tomcat
   service: name=tomcat7 state=restarted enabled=yes
-  become_user: root
+  become_user: "root"
