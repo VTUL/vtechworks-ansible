@@ -23,9 +23,24 @@ using the following command
 brew install ansible
 ```
 
+*On Ubuntu Trusty*
+
+```
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+```
+
 Clone this repository on your local machine using git which is installed using the following command
 ```
 brew install git
+```
+
+*On Ubuntu Trusty*
+
+```
+sudo apt-get install git
 ```
 
 ## Configuration
@@ -46,6 +61,21 @@ In the case of a local development environment the user will need to install mav
 brew install Caskroom/cask/java
 brew install maven32
 ```
+
+*On Ubuntu Trusty*
+
+```
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get purge -y maven
+# download maven 3.2.5 from https://maven.apache.org/download.cgi to temp dir
+sudo tar -zxf /tmp/apache-maven-3.2.5-bin.tar.gz -C /opt/nondeb/
+sudo ln -s /opt/nondeb/apache-maven-3.2.5/bin/mvn /usr/local/bin/mvn
+echo "export M2_HOME=/opt/nondeb/apache-maven-3.2.5" >> ~/.profile
+. ~/.profile
+```
+
 
 Note that the `Vagrantfile` expects VTUL's fork of [DSpace](https://github.com/vtul/vtechworks.git) to be on your host machine at `dspace` of your cloned repo where you will do your development.
 
