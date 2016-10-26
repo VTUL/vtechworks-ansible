@@ -7,6 +7,7 @@
   with_items:
     - clamav
     - libclamav-dev
+    - clamav-daemon
 
 - name: copy template config file
   template: src=clamd.conf.j2 dest=/etc/clamav/clamd.conf
