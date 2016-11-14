@@ -2,10 +2,10 @@
 - name: download maven binary
   get_url: url=https://archive.apache.org/dist/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz dest=/tmp/apache-maven-{{ maven_version }}-bin.tar.gz
 
-- name: unpack downloaded ant binary
-  unarchive: src=/tmp/apache-maven-{{ maven_version }}-bin.tar.gz dest={{ software_directory }} remote_src=yes creates=yes copy=no
+- name: unpack downloaded maven binary
+  unarchive: src=/tmp/apache-maven-{{ maven_version }}-bin.tar.gz dest={{ software_directory }} remote_src=yes creates=yes
 
-- name: create symbolic link for ant
+- name: create symbolic link for maven
   file: src={{ software_directory }}/apache-maven-{{ maven_version }} dest=/opt/apache-maven state=link
 
 - name: override system ant modules
